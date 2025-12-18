@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de control horario para empleados con registro de entrada, salida y descansos">
+    <title>Control Horario - Gestión de Empleados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">⏰</span>
+                    Control Horario
+                </h1>
+                <div class="current-time" id="currentTime">--:--:--</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Employee Selection Card -->
+            <section class="card employee-card">
+                <h2 class="card-title">Empleado</h2>
+                <div class="employee-selector">
+                    <select id="employeeSelect" class="input-select">
+                        <option value="">Seleccionar empleado...</option>
+                    </select>
+                    <button id="addEmployeeBtn" class="btn btn-secondary">
+                        <span class="btn-icon">+</span>
+                        Nuevo Empleado
+                    </button>
+                </div>
+                
+                <!-- New Employee Form (Hidden by default) -->
+                <div id="newEmployeeForm" class="new-employee-form hidden">
+                    <input type="text" id="employeeName" class="input-text" placeholder="Nombre del empleado">
+                    <select id="scheduleType" class="input-select">
+                        <option value="full">Jornada Completa (8h)</option>
+                        <option value="part">Media Jornada (4h)</option>
+                    </select>
+                    <div class="form-actions">
+                        <button id="saveEmployeeBtn" class="btn btn-primary">Guardar</button>
+                        <button id="cancelEmployeeBtn" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Time Tracking Card -->
+            <section class="card tracking-card" id="trackingCard">
+                <div class="card-header">
+                    <h2 class="card-title">Registro de Tiempo</h2>
+                    <div class="schedule-badge" id="scheduleBadge">
+                        <span class="badge-label">Jornada Completa</span>
+                        <span class="badge-hours">8h</span>
+                    </div>
+                </div>
+
+                <!-- Status Display -->
+                <div class="status-display" id="statusDisplay">
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Fuera de servicio</span>
+                    </div>
+                    <div class="elapsed-time" id="elapsedTime">00:00:00</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="clockInBtn" class="btn btn-success btn-large">
+                        <span class="btn-icon">▶</span>
+                        Entrada
+                    </button>
+                    <button id="clockOutBtn" class="btn btn-danger btn-large hidden">
+                        <span class="btn-icon">■</span>
+                        Salida
+                    </button>
+                </div>
+
+                <!-- Break Controls -->
+                <div class="break-controls" id="breakControls">
+                    <button id="startBreakBtn" class="btn btn-warning">
+                        <span class="btn-icon">☕</span>
+                        Iniciar Descanso
+                    </button>
+                    <button id="endBreakBtn" class="btn btn-info hidden">
+                        <span class="btn-icon">▶</span>
+                        Finalizar Descanso
+                    </button>
+                </div>
+
+                <!-- Time Summary -->
+                <div class="time-summary" id="timeSummary">
+                    <div class="summary-item">
+                        <span class="summary-label">Entrada:</span>
+                        <span class="summary-value" id="clockInTime">--:--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Salida:</span>
+                        <span class="summary-value" id="clockOutTime">--:--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Tiempo de Descanso:</span>
+                        <span class="summary-value" id="breakTime">00:00</span>
+                    </div>
+                    <div class="summary-item highlight">
+                        <span class="summary-label">Horas Trabajadas:</span>
+                        <span class="summary-value" id="totalHours">00:00</span>
+                    </div>
+                </div>
+
+                <!-- Break Periods List -->
+                <div class="break-periods" id="breakPeriods"></div>
+            </section>
+
+            <!-- Daily Summary Card -->
+            <section class="card summary-card">
+                <h2 class="card-title">Resumen Diario</h2>
+                <div class="daily-summary" id="dailySummary">
+                    <p class="empty-state">No hay registros para hoy</p>
+                </div>
+            </section>
+
+            <!-- History Card -->
+            <section class="card history-card">
+                <div class="card-header">
+                    <h2 class="card-title">Historial</h2>
+                    <button id="clearHistoryBtn" class="btn btn-text">Limpiar</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <p class="empty-state">No hay registros históricos</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
